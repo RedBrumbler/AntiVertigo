@@ -1,0 +1,8 @@
+*.backup
+*.log
+*.zip
+extern/
+libs/
+obj/
+qpm.shared.json
+ndkpath.txt

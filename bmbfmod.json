@@ -1,0 +1,43 @@
+{
+  "id": "AntiVertigo",
+  "name": "Anti Vertigo",
+  "version": "1.0.0",
+  "icon": "cover.png",
+  "coverImageFilename": "cover.png",
+  "author": "RedBrumbler",
+  "description": [
+    "Spawn a bigger base platform for people with vertigo so they can play comfortably"
+  ],
+  "category": "Gameplay",
+  "gameVersion": "1.13.0",
+  "platform": "Quest",
+  "components": [
+    {
+      "type": "HookMod",
+      "installAction": {
+        "installLibraryFile": "libantivertigo.so"
+      },
+      "uninstallAction": {
+        "removeLibraryFile": "libantivertigo.so"
+      }
+    },
+    {
+      "type": "HookModLibrary",
+      "installAction": {
+        "installLibraryFile": "libbeatsaber-hook_0_8_4.so"
+      }
+    },
+    {
+      "type": "HookModLibrary",
+      "installAction": {
+        "installLibraryFile": "libquestui.so"
+      }
+    },
+    {
+      "type": "HookModLibrary",
+      "installAction": {
+        "installLibraryFile": "libcustom-types.so"
+      }
+    }
+  ]
+}
