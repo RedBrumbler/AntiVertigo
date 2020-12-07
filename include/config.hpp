@@ -11,10 +11,10 @@ typedef enum _shape_t {
 
 typedef struct _config_t {
     bool enabled = true;
-    double xmin = -5.0;
-    double xmax = 5.0;
-    double zmin = -5.0;
-    double zmax = 20.0;
+    double xmin = -2.0;
+    double xmax = 2.0;
+    double zmin = -2.0;
+    double zmax = 8.0;
     int shape = 0;
 } config_t;
 
