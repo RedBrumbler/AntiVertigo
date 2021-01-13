@@ -24,6 +24,8 @@ extern config_t config;
 #include "VertigoPlatformBehaviour.hpp"
 
 #include <cstdlib>
+#include <vector>
+#include <string>
 
 using namespace QuestUI;
 using namespace UnityEngine;
@@ -31,9 +33,12 @@ using namespace UnityEngine::UI;
 using namespace UnityEngine::Events;
 using namespace HMUI;
 
-extern bool enabled;
-
 DEFINE_CLASS(AntiVertigo::SettingsViewController);
+
+std::vector<std::string> shapes = {
+    "Cube",
+    "Cylinder"
+};
 
 void AntiVertigo::SettingsViewController::DidActivate(bool firstActivation, bool addedToHierarchy, bool screenSystemEnabling)
 {
@@ -56,37 +61,41 @@ void AntiVertigo::SettingsViewController::DidActivate(bool firstActivation, bool
                 SaveConfig();
             }));
         BeatSaberUI::CreateText(container->get_transform(), "");
-        BeatSaberUI::CreateText(container->get_transform(), "== Platform size settings ==\n-- Values below 0 get ignored --");
-        QuestUI::IncrementSetting* xmin = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform left side offset", 2, 0.2f, -config.xmin, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
-                if (value >= -0.1) config.xmin = -value;
+        BeatSaberUI::CreateText(container->get_transform(), "== Platform size settings ==");
+        QuestUI::IncrementSetting* xmin = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform left side offset", 2, 0.2f, -config.xmin, 0.0f, 1000, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
+                config.xmin = -value;
                 SaveConfig();
                 Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>()->UpdateSize();
             }));
         BeatSaberUI::AddHoverHint(xmin->get_gameObject(), "How far the platform extends to the left side");
-        QuestUI::IncrementSetting* xmax = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform right side offset", 2, 0.2f, config.xmax, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
-                if (value >= -0.1) config.xmax = value;
+        QuestUI::IncrementSetting* xmax = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform right side offset", 2, 0.2f, config.xmax, 0.0f, 1000, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
+                config.xmax = value;
                 SaveConfig();
                 Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>()->UpdateSize();
             }));
         BeatSaberUI::AddHoverHint(xmax->get_gameObject(), "How far the platform extends to the right side");
-        QuestUI::IncrementSetting* zmin = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform back side offset", 2, 0.2f, -config.zmin, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
-                if (value >= -0.1) config.zmin = -value;
+        QuestUI::IncrementSetting* zmin = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform back side offset", 2, 0.2f, -config.zmin, 0.0f, 1000, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
+                config.zmin = -value;
                 SaveConfig();
                 Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>()->UpdateSize();
             }));
         BeatSaberUI::AddHoverHint(zmin->get_gameObject(), "How far the platform extends to the back side");
-        QuestUI::IncrementSetting* zmax = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform front side offset", 2, 0.2f, config.zmax, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
-                if (value >= -0.1) config.zmax = value;
+        QuestUI::IncrementSetting* zmax = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Platform front side offset", 2, 0.2f, config.zmax, 0.0, 1000, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
+                config.zmax = value;
                 SaveConfig();
                 Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>()->UpdateSize();
             }));
         BeatSaberUI::AddHoverHint(zmax->get_gameObject(), "How far the platform extends to the front side");
-        QuestUI::IncrementSetting* shape = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Shape of the platform", 0, 1.0, config.shape, il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), this, +[](SettingsViewController* view, float value) {
-                if (value >= 0) config.shape = value;
+        
+        QuestUI::IncrementSetting* shape = BeatSaberUI::CreateIncrementSetting(container->get_transform(), "Shape of the platform", 0, 1.0f, config.shape, 0.0f, 1.0f, nullptr);
+        shape->OnValueChange = il2cpp_utils::MakeDelegate<UnityAction_1<float>*>(classof(UnityAction_1<float>*), shape, +[](QuestUI::IncrementSetting* self, float value) {
+                config.shape = value;
                 SaveConfig();
                 Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>()->SetMesh();
-            }));
-        BeatSaberUI::AddHoverHint(shape->get_gameObject(), "0: Cube, 1: Cylinder, undefined will default to cube");
+                self->Text->SetText(il2cpp_utils::createcsstr(shapes[value]));
+            });
+        shape->Text->SetText(il2cpp_utils::createcsstr(shapes[config.shape]));
+        BeatSaberUI::AddHoverHint(shape->get_gameObject(), "The shape of the platform");
     }
 }
 

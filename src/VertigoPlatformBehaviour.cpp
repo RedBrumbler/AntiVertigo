@@ -19,11 +19,8 @@ extern std::string activeSceneName;
 
 DEFINE_CLASS(AntiVertigo::VertigoPlatformBehaviour);
 
-const Logger& getPlatformLogger()
-{
-    static const Logger& logger((ModInfo){ID, VERSION});
-    return logger;
-}
+extern Logger& getLogger();
+#define getPlatformLogger() getLogger()
 
 namespace AntiVertigo
 {

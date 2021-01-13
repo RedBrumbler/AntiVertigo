@@ -25,10 +25,10 @@ extern config_t config;
 bool getSceneName(UnityEngine::SceneManagement::Scene scene, std::string& output);
 std::string activeSceneName = "";
 
-const Logger& getLogger()
+Logger& getLogger()
 {
-    static const Logger& logger(modInfo);
-    return logger;
+    static Logger* logger = new Logger(modInfo, LoggerOptions(false, true));
+    return *logger;
 }
 
 MAKE_HOOK_OFFSETLESS(SceneManager_SetActiveScene, bool, UnityEngine::SceneManagement::Scene scene)
@@ -73,8 +73,8 @@ extern "C" void load()
         SaveConfig();
     il2cpp_functions::Init();
     QuestUI::Init();
-     
-    INSTALL_HOOK_OFFSETLESS(SceneManager_SetActiveScene, il2cpp_utils::FindMethodUnsafe("UnityEngine.SceneManagement", "SceneManager", "SetActiveScene", 1));
+    LoggerContextObject logger = getLogger().WithContext("load");
+    INSTALL_HOOK_OFFSETLESS(logger, SceneManager_SetActiveScene, il2cpp_utils::FindMethodUnsafe("UnityEngine.SceneManagement", "SceneManager", "SetActiveScene", 1));
 
     custom_types::Register::RegisterType<AntiVertigo::VertigoPlatformBehaviour>();
     custom_types::Register::RegisterType<AntiVertigo::SettingsViewController>();
@@ -84,8 +84,9 @@ extern "C" void load()
 
 bool getSceneName(UnityEngine::SceneManagement::Scene scene, std::string& output)
 {
+    LoggerContextObject logger = getLogger().WithContext("scene name");
     Il2CppString* csString = UnityEngine::SceneManagement::Scene::GetNameInternal(scene.m_Handle);
-    RET_0_UNLESS(csString);
+    RET_0_UNLESS(logger, csString);
     output = to_utf8(csstrtostr(csString));
     return true; 
 }
