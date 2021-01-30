@@ -10,5 +10,4 @@ if (-not ($PSVersionTable.PSEdition -eq "Core")) {
 Compress-Archive -Path  "cover.png",`
                         "./libs/arm64-v8a/libantivertigo.so",`
                         "./bmbfmod.json",`
-                        "./extern/libbs-utils.so",`
                         "./extern/libbeatsaber-hook_1_0_12.so" -DestinationPath "./AntiVertigo.zip" -Update
