@@ -1,6 +1,7 @@
 *.backup
 *.log
 *.zip
+*.qmod
 extern/
 libs/
 obj/

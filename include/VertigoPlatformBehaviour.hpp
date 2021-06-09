@@ -9,7 +9,7 @@ DECLARE_CLASS_CODEGEN(AntiVertigo, VertigoPlatformBehaviour, UnityEngine::MonoBe
     DECLARE_METHOD(void, UpdateSize);
     DECLARE_METHOD(void, SetMesh);
 
-    REGISTER_FUNCTION(VertigoPlatformBehaviour,
+    REGISTER_FUNCTION(
         REGISTER_METHOD(Awake);
         REGISTER_METHOD(OnEnable);
         REGISTER_METHOD(OnDisable);

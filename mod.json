@@ -1,0 +1,26 @@
+{
+    "_QPVersion": "0.1.1",
+    "name": "Anti Vertigo",
+    "id": "AntiVertigo",
+    "author": "RedBrumbler",
+    "version": "1.0.2",
+    "packageId": "com.beatgames.beatsaber",
+    "packageVersion": "1.16.2",
+    "coverImage": "cover.png",
+    "description": "Spawn a bigger base platform for people with vertigo so they can play comfortably",
+    "type": "Gameplay",
+    "dependencies": [
+    ],
+	"modFiles": [
+		"libantivertigo.so"
+    ],
+    "libraryFiles": [
+        "libbeatsaber-hook_1_3_5.so",
+        "libbeatsaber-hook_1_3_3.so",
+        "libcodegen_0_9_0.so",
+        "libcustom-types.so",
+        "libquestui.so"
+    ],
+    "fileCopies": [
+    ]
+}

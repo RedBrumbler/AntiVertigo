@@ -6,6 +6,7 @@
 #include "beatsaber-hook/shared/utils/typedefs.h"
 
 #include "UnityEngine/SceneManagement/Scene.hpp"
+#include "UnityEngine/Resources.hpp"
 #include "UnityEngine/Object.hpp"
 #include "UnityEngine/GameObject.hpp"
 #include "SettingsViewController.hpp"
@@ -37,22 +38,24 @@ MAKE_HOOK_OFFSETLESS(SceneManager_SetActiveScene, bool, UnityEngine::SceneManage
     getLogger().info("Found scene %s", activeSceneName.c_str());
     if (activeSceneName == "GameCore" && config.enabled) // in gamecore, enable the platform
     {
-        AntiVertigo::VertigoPlatformBehaviour* platform = UnityEngine::Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>();
-        if (!platform)
+        Array<AntiVertigo::VertigoPlatformBehaviour*>* platforms = UnityEngine::Resources::FindObjectsOfTypeAll<AntiVertigo::VertigoPlatformBehaviour*>();
+        if (platforms->Length() == 0)
         {
             UnityEngine::GameObject* newObj = UnityEngine::GameObject::New_ctor();
             newObj->DontDestroyOnLoad(newObj);
-            platform = newObj->AddComponent<AntiVertigo::VertigoPlatformBehaviour*>();
+            newObj->AddComponent<AntiVertigo::VertigoPlatformBehaviour*>();
         }
-
-        platform->get_gameObject()->SetActive(true);
+        else
+        {
+            platforms->values[0]->get_gameObject()->SetActive(true);
+        }
     }
     else // not gamecore means disable (? -> depends on the other menus, wether or not they have big holes)
     {
-        AntiVertigo::VertigoPlatformBehaviour* platform = UnityEngine::Object::FindObjectOfType<AntiVertigo::VertigoPlatformBehaviour*>();
-        if (platform)
+        Array<AntiVertigo::VertigoPlatformBehaviour*>* platforms = UnityEngine::Resources::FindObjectsOfTypeAll<AntiVertigo::VertigoPlatformBehaviour*>();
+        if (platforms->Length() != 0)
         {
-            platform->get_gameObject()->SetActive(false);
+            platforms->values[0]->get_gameObject()->SetActive(false);
         }
     }
 
