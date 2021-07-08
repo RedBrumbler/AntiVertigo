@@ -14,7 +14,7 @@ on:
       # ignore all .yml files
       - '**.yml'
       # dont ignore this specific file
-      - '!.github/workflows/BuildMod.yml'
+      - '!.github/workflows/build-ndk.yml'
       # ignore all .json files
       - '**.json'
       # dont ignore this specific file
