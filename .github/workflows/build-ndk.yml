@@ -6,10 +6,13 @@ on:
   pull_request:
     branches: master
 
+env:
+    ndkname: android-ndk-r22
+    module_id: antivertigo
+    
 jobs:
   build:
     env:
-      module_id: antivertigo
     runs-on: ubuntu-latest
     
     steps:
@@ -21,14 +24,28 @@ jobs:
     - name: Install Powershell
       run: sudo apt-get install -y powershell
     
-    - name: Setup NDK
-      id: setup-ndk
-      uses: nttld/setup-ndk@v1.0.3
+    - name: Cache Android NDK
+      id: cache-ndk
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-ndk
       with:
-        ndk-version: r22
+        path: ndk
+        key: ${{ runner.os }}-${{ env.cache-name }}-${{ env.ndkname }}
+        restore-keys: |
+          ${{ runner.os }}-${{ env.cache-name }}-${{ env.ndkname }}
+    
+    - name: Install Android NDK
+      if: steps.cache-ndk.outputs.cache-hit != 'true'
+      run: |
+        wget -q -O ndk.zip https://dl.google.com/android/repository/${ndkname}-linux-x86_64.zip
+        unzip -q ndk.zip
+        mv ${ndkname} ndk
       
     - name: Create ndkpath.txt
-      run: echo ${{ steps.setup-ndk.outputs.ndk-path }} > ${GITHUB_WORKSPACE}/ndkpath.txt
+      run: |
+        cd ndk
+        pwd > ${GITHUB_WORKSPACE}/ndkpath.txt
         
 #     - name: Cache QPM
 #       id: cache-qpm
