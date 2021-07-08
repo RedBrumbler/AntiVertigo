@@ -18,10 +18,6 @@ TARGET_ARCH_ABI := $(APP_ABI)
 
 rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 
-# Build the modloader shared library
-include $(CLEAR_VARS)
-LOCAL_MODULE := 
-include $(CLEAR_VARS)
 # Creating prebuilt for dependency: beatsaber-hook - version: 2.0.3
 include $(CLEAR_VARS)
 LOCAL_MODULE := beatsaber-hook_2_0_3
@@ -72,6 +68,6 @@ LOCAL_SHARED_LIBRARIES += codegen_0_10_2
 LOCAL_SHARED_LIBRARIES += custom-types
 LOCAL_SHARED_LIBRARIES += questui
 LOCAL_LDLIBS += -llog
-LOCAL_CFLAGS += -I'D:/il2cpp/libil2cpp' -isystem 'extern' -I'extern/codegen/include' -DID='"AntiVertigo"' -DVERSION='"1.0.1"' -I'./shared' -I'./extern' -Wno-inaccessible-base
+LOCAL_CFLAGS += -I'extern/libil2cpp/il2cpp' -isystem 'extern' -I'extern/codegen/include' -DID='"AntiVertigo"' -DVERSION='"1.0.1"' -I'./shared' -I'./extern' -Wno-inaccessible-base
 LOCAL_C_INCLUDES += ./include ./src
 include $(BUILD_SHARED_LIBRARY)
