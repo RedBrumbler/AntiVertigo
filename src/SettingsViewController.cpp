@@ -33,7 +33,7 @@ using namespace UnityEngine::UI;
 using namespace UnityEngine::Events;
 using namespace HMUI;
 
-DEFINE_TYPE(AntiVertigo::SettingsViewController);
+DEFINE_TYPE(AntiVertigo, SettingsViewController);
 
 std::vector<std::string> shapes = {
     "Cube",

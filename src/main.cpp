@@ -1,11 +1,13 @@
 #include "beatsaber-hook/shared/utils/utils.h"
 #include "beatsaber-hook/shared/utils/logging.hpp"
+#include "beatsaber-hook/shared/utils/hooking.hpp"
 #include "modloader/shared/modloader.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-functions.hpp"
 #include "beatsaber-hook/shared/utils/il2cpp-utils.hpp" 
 #include "beatsaber-hook/shared/utils/typedefs.h"
 
 #include "UnityEngine/SceneManagement/Scene.hpp"
+#include "UnityEngine/SceneManagement/SceneManager.hpp"
 #include "UnityEngine/Resources.hpp"
 #include "UnityEngine/Object.hpp"
 #include "UnityEngine/GameObject.hpp"
@@ -32,7 +34,7 @@ Logger& getLogger()
     return *logger;
 }
 
-MAKE_HOOK_OFFSETLESS(SceneManager_SetActiveScene, bool, UnityEngine::SceneManagement::Scene scene)
+MAKE_HOOK_MATCH(SceneManager_SetActiveScene, &UnityEngine::SceneManagement::SceneManager::SetActiveScene, bool, UnityEngine::SceneManagement::Scene scene)
 {
     getSceneName(scene, activeSceneName);
     getLogger().info("Found scene %s", activeSceneName.c_str());
@@ -77,10 +79,9 @@ extern "C" void load()
     il2cpp_functions::Init();
     QuestUI::Init();
     LoggerContextObject logger = getLogger().WithContext("load");
-    INSTALL_HOOK_OFFSETLESS(logger, SceneManager_SetActiveScene, il2cpp_utils::FindMethodUnsafe("UnityEngine.SceneManagement", "SceneManager", "SetActiveScene", 1));
+    INSTALL_HOOK(logger, SceneManager_SetActiveScene);
 
-    custom_types::Register::RegisterType<AntiVertigo::VertigoPlatformBehaviour>();
-    custom_types::Register::RegisterType<AntiVertigo::SettingsViewController>();
+    custom_types::Register::AutoRegister();
 
     QuestUI::Register::RegisterModSettingsViewController<AntiVertigo::SettingsViewController*>((ModInfo){"Anti Vertigo", VERSION}, "Anti Vertigo");
 }

@@ -22,29 +22,29 @@ rwildcard=$(wildcard $1$2) $(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2))
 include $(CLEAR_VARS)
 LOCAL_MODULE := 
 include $(CLEAR_VARS)
-# Creating prebuilt for dependency: beatsaber-hook - version: 1.3.5
+# Creating prebuilt for dependency: beatsaber-hook - version: 2.0.3
 include $(CLEAR_VARS)
-LOCAL_MODULE := beatsaber-hook_1_3_5
+LOCAL_MODULE := beatsaber-hook_2_0_3
 LOCAL_EXPORT_C_INCLUDES := extern/beatsaber-hook
-LOCAL_SRC_FILES := extern/libbeatsaber-hook_1_3_5.so
+LOCAL_SRC_FILES := extern/libbeatsaber-hook_2_0_3.so
 LOCAL_CPP_FEATURES += rtti exceptions
 LOCAL_EXPORT_C_FLAGS := -DNEED_UNSAFE_CSHARP -Wno-inaccessible-base
 include $(PREBUILT_SHARED_LIBRARY)
-# Creating prebuilt for dependency: codegen - version: 0.9.0
+# Creating prebuilt for dependency: codegen - version: 0.10.2
 include $(CLEAR_VARS)
-LOCAL_MODULE := codegen_0_9_0
+LOCAL_MODULE := codegen_0_10_2
 LOCAL_EXPORT_C_INCLUDES := extern/codegen
-LOCAL_SRC_FILES := extern/libcodegen_0_9_0.so
+LOCAL_SRC_FILES := extern/libcodegen_0_10_2.so
 LOCAL_CPP_FEATURES += rtti exceptions
 LOCAL_EXPORT_C_FLAGS := -Wno-inaccessible-base
 include $(PREBUILT_SHARED_LIBRARY)
-# Creating prebuilt for dependency: custom-types - version: 0.8.3
+# Creating prebuilt for dependency: custom-types - version: 0.12.2
 include $(CLEAR_VARS)
 LOCAL_MODULE := custom-types
 LOCAL_EXPORT_C_INCLUDES := extern/custom-types
 LOCAL_SRC_FILES := extern/libcustom-types.so
 include $(PREBUILT_SHARED_LIBRARY)
-# Creating prebuilt for dependency: questui - version: 0.7.0
+# Creating prebuilt for dependency: questui - version: 0.9.0
 include $(CLEAR_VARS)
 LOCAL_MODULE := questui
 LOCAL_EXPORT_C_INCLUDES := extern/questui
@@ -67,8 +67,8 @@ LOCAL_SRC_FILES += $(call rwildcard,src/**,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook,*.cpp)
 LOCAL_SRC_FILES += $(call rwildcard,extern/beatsaber-hook/src/inline-hook,*.c)
 LOCAL_SHARED_LIBRARIES += modloader
-LOCAL_SHARED_LIBRARIES += beatsaber-hook_1_3_5
-LOCAL_SHARED_LIBRARIES += codegen_0_9_0
+LOCAL_SHARED_LIBRARIES += beatsaber-hook_2_0_3
+LOCAL_SHARED_LIBRARIES += codegen_0_10_2
 LOCAL_SHARED_LIBRARIES += custom-types
 LOCAL_SHARED_LIBRARIES += questui
 LOCAL_LDLIBS += -llog

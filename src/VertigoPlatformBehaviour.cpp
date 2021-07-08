@@ -17,7 +17,7 @@ extern std::string activeSceneName;
 #include "TMPro/TextMeshProUGUI.hpp"
 #include "TMPro/TextMeshPro.hpp"
 
-DEFINE_TYPE(AntiVertigo::VertigoPlatformBehaviour);
+DEFINE_TYPE(AntiVertigo, VertigoPlatformBehaviour);
 
 extern Logger& getLogger();
 #define getPlatformLogger() getLogger()
