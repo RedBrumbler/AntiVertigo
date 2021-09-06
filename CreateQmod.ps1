@@ -130,10 +130,4 @@ $msg = "Creating qmod for module " + $env:module_id + " With name " + $qmod
 echo $msg
 Compress-Archive -Path $fileList -DestinationPath $zip -Update
 
-if (-not ($LastExitCode -eq 0)) {
-    $msg = "exit code " + $LastExitCode
-    echo $msg
-    exit $LastExitCode
-}
-
 & move-item -Force $zip $qmod
