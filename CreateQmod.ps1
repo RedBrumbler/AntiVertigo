@@ -103,8 +103,8 @@ $qpm = "./qpm.json"
 $qpmJson = Get-Content $qpm | ConvertFrom-Json 
 $modJson.version = $qpmJson.info.version
 
-$libs += ,"libbeatsaber-hook_2_2_4.so";
-$fileList += ,"./extern/libbeatsaber-hook_2_2_4.so";
+#$libs += ,"libbeatsaber-hook_2_2_4.so";
+#$fileList += ,"./extern/libbeatsaber-hook_2_2_4.so";
 
 # add the thing to the libs list because we don't need it as a mod file
 $modJson.modFiles = $modlib
@@ -129,5 +129,11 @@ if (Test-Path $qmod)
 $msg = "Creating qmod for module " + $env:module_id + " With name " + $qmod
 echo $msg
 Compress-Archive -Path $fileList -DestinationPath $zip -Update
+
+if (-not ($LastExitCode -eq 0)) {
+    $msg = "exit code " + $LastExitCode
+    echo $msg
+    exit $LastExitCode
+}
 
 & move-item -Force $zip $qmod
