@@ -87,7 +87,7 @@ void AntiVertigo::SettingsViewController::DidActivate(bool firstActivation, bool
             });
         BeatSaberUI::AddHoverHint(zmax->get_gameObject(), "How far the platform extends to the front side");
         
-        HMUI::SimpleTextDropdown* shape = BeatSaberUI::CreateDropdown(container->get_transform(), "Shape of the platform", shapes[config.shape], shapes, [&](std::string value) {
+        HMUI::SimpleTextDropdown* shape = BeatSaberUI::CreateDropdown(container->get_transform(), u"Shape of the platform", shapes[config.shape], shapes, [&](auto value) {
                 int i = 0;
                 for (i = 0; i < 2; i++)
                 {
