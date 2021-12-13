@@ -17,7 +17,7 @@ mkdir build
 cd build
 $cmd = "cmake -G ""Ninja"" -DCMAKE_BUILD_TYPE=`"$BUILD_TYPE`" ../"
 Invoke-Expression $cmd
-cmake --build
+cmake --build build
 cd ..
 exit;
 
