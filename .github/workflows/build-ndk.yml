@@ -57,7 +57,7 @@ jobs:
       with:
         submodules: recursive
         lfs: true
-    - uses: actions/setup-ninja@v3
+    - uses: seanmiddleditch/gha-setup-ninja@v3
       
       # create the ndkpath.txt file needed in our own compile scripts
     - name: Create ndkpath.txt
