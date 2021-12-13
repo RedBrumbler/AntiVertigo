@@ -125,9 +125,14 @@ jobs:
         echo libs:
         ls -la ${GITHUB_WORKSPACE}/extern/libs
         ls -la $HOME/.local/share/QPM-Rust/cache
-    - name: Temporary symlink to make it work
+    - uses: actions/setup-python@v2.3.1
+      with:
+        python-version: '3.x'
+
+    - name: Hack to rename includes to make compile work
       run: |
-        ln -s ${GITHUB_WORKSPACE}/extern/includes ${GITHUB_WORKSPACE}/extern
+        python ${GITHUB_WORKSPACE}/rename.py
+        
     # actually run the build script
     - name: Build debug
       run: |
