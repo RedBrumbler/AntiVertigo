@@ -93,6 +93,7 @@ jobs:
     # collect all dependencies, I assume for reading back what was used to build a specific .so
     - name: QPM Collapse
       run: |
+        mv ./QPM/qpm-rust ./QPM/QPM
         chmod +x ./QPM/QPM
         ./QPM/QPM collapse
 
@@ -167,7 +168,7 @@ jobs:
         path: ./build/${{ steps.libname.outputs.NAME }}
         # if not found error obviously
         if-no-files-found: error
-        
+
     # upload the qmod 
 #    - name: Upload qmod artifact
 #      uses: actions/upload-artifact@v2
