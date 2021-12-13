@@ -14,7 +14,6 @@ if ($release.IsPresent)
 }
 
 mkdir build
-qpm qmod build
 cd build
 $cmd = "cmake -G ""Ninja"" -DCMAKE_BUILD_TYPE=`"$BUILD_TYPE`" ../"
 Invoke-Expression $cmd
