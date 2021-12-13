@@ -125,13 +125,10 @@ jobs:
         echo libs:
         ls -la ${GITHUB_WORKSPACE}/extern/libs
         ls -la $HOME/.local/share/QPM-Rust/cache
-    - uses: actions/setup-python@v2.3.1
-      with:
-        python-version: '3.x'
 
-    - name: Hack to rename includes to make compile work
+    - name: Apply Legacy Fix
       run: |
-        python ${GITHUB_WORKSPACE}/rename.py
+        ./QPM/QPM cache legacy-fix
         
     # actually run the build script
     - name: Build debug
