@@ -105,7 +105,7 @@ jobs:
       env:
         cache-name: cache-qpm-deps
       with:
-        path: $HOME/.local/share/QPM-Rust/cache
+        path: /runner/local/.local/share/QPM-Rust/cache
         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('qpm.json') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
