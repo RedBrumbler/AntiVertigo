@@ -121,9 +121,9 @@ jobs:
       run: |
         echo includes:
         ls -la ${GITHUB_WORKSPACE}/extern/includes
-        echo \nlibs:
+        echo libs:
         ls -la ${GITHUB_WORKSPACE}/extern/libs
-        ls -la QPM_Temp
+        ls -la $HOME/.local/share/QPM-Rust/cache
     
     # actually run the build script
     - name: Build debug
