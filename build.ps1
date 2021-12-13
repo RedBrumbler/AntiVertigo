@@ -1,6 +1,25 @@
-param($p1)
+Param(
+    [Parameter(Mandatory=$false)]
+    [Switch]$release
+)
 
 $NDKPath = Get-Content $PSScriptRoot/ndkpath.txt
+
+# by default, build debug
+$BUILD_TYPE = "Debug"
+if ($release.IsPresent)
+{
+    # if user specified -release, build a release object
+    $BUILD_TYPE = "Release"
+}
+
+mkdir build
+qpm qmod build
+cd build
+$cmd = cmake -G "Ninja" -DCMAKE_BUILD_TYPE=`"$BUILD_TYPE`" ../
+cmake --build
+cd ..
+exit;
 
 $buildScript = "$NDKPath/build/ndk-build"
 
