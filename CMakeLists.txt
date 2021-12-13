@@ -3,7 +3,7 @@ include(qpm_defines.cmake)
 message(STATUS "Making ${CMAKE_BUILD_TYPE} library")
 
 cmake_minimum_required(VERSION 3.22)
-project(qosmetics)
+project(${COMPILE_ID})
 
 
 # c++ standard
