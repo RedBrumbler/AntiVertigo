@@ -55,7 +55,7 @@ else
 # if all fails, just assume 4
 if (-not $coreCount)
 {
-    echo "Couldn't get core count, assuming 4"
+    echo "Couldnt get core count, assuming 4"
     $coreCount = 4
 }
 
