@@ -39,6 +39,11 @@
       "id": "modloader",
       "versionRange": "^1.2.3",
       "additionalData": {}
+    },
+    {
+      "id": "libil2cpp",
+      "versionRange": "^0.2.3",
+      "additionalData": {}
     }
   ],
   "additionalData": {}

@@ -5,7 +5,6 @@ message(STATUS "Making ${CMAKE_BUILD_TYPE} library")
 cmake_minimum_required(VERSION 3.22)
 project(${COMPILE_ID})
 
-
 # c++ standard
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED 20)
@@ -24,6 +23,7 @@ add_compile_definitions(ID=\"${MOD_ID}\")
 RECURSE_FILES(cpp_file_list ${SOURCE_DIR}/*.cpp)
 RECURSE_FILES(c_file_list ${SOURCE_DIR}/*.c)
 
+
 # add all src files to compile
 add_library(
     ${COMPILE_ID} 
@@ -31,6 +31,7 @@ add_library(
     ${cpp_file_list}
     ${c_file_list}
 )
+
 
 # add src dir as include dir
 target_include_directories(${COMPILE_ID} PRIVATE ${SOURCE_DIR})
@@ -41,5 +42,6 @@ target_include_directories(${COMPILE_ID} PUBLIC ${SHARED_DIR})
 # codegen includes 
 target_include_directories(${COMPILE_ID} PRIVATE ${EXTERN_DIR}/includes/${CODEGEN_ID}/include)
 
+target_link_libraries(${COMPILE_ID} PRIVATE -llog)
 # add extern stuff like libs and other includes
 include(extern.cmake)
