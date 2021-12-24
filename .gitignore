@@ -9,5 +9,12 @@ obj/
 *.cmake
 qpm.shared.json
 ndkpath.txt
+
 *.ps1
+!build.ps1
+!createqmod.ps1
+
 .vscode
+*.json
+!qpm.json
+!mod.template.json

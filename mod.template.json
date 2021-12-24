@@ -10,13 +10,8 @@
   "description": "Spawn a bigger base platform for people with vertigo so they can play comfortably, ${mod_id} v${version}",
   "type": "Gameplay",
   "dependencies": [],
-  "modFiles": [
-    "libantivertigo.so"
-  ],
-  "libraryFiles": [
-    "libbeatsaber-hook_2_2_5.so",
-    "libbeatsaber-hook_2_2_4.so"
-  ],
+  "modFiles": [],
+  "libraryFiles": [],
   "fileCopies": [],
   "copyExtensions": []
 }

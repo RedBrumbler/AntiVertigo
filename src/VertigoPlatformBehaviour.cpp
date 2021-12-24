@@ -71,7 +71,7 @@ namespace AntiVertigo
             default: // fallthrough
             case CUBE:
                 lookingFor += "vertigoCube";
-                transformName = il2cpp_utils::createcsstr(lookingFor);
+                transformName = il2cpp_utils::newcsstr(lookingFor);
                 if (UnityEngine::Transform* cube = get_transform()->Find(transformName))
                 {
                     cube->get_gameObject()->SetActive(true);
@@ -83,23 +83,20 @@ namespace AntiVertigo
                     cubeGO->get_transform()->SetParent(get_transform(), false);
                     cubeGO->get_transform()->set_localScale(UnityEngine::Vector3(1.0f, 0.2f, 1.0f));
 
-                    Array<UnityEngine::Material*>* allMats = UnityEngine::Resources::FindObjectsOfTypeAll<UnityEngine::Material*>();
+                    ArrayW<UnityEngine::Material*> allMats = UnityEngine::Resources::FindObjectsOfTypeAll<UnityEngine::Material*>();
                     std::string matName = "";
-                    if (allMats)
-                    {
-                        for (int i = 0; i < allMats->Length(); i++)
+                        for (auto mat : allMats)
                         {
-                            if (!allMats->values[i]) continue;
-                            matName = to_utf8(csstrtostr(allMats->values[i]->get_name()));
+                            if (!mat) continue;
+                            matName = to_utf8(csstrtostr(mat->get_name()));
                             if (matName == "DarkEnvironmentSimple")
                             {
-                                cubeGO->GetComponent<UnityEngine::MeshRenderer*>()->set_material(allMats->values[i]);
+                                cubeGO->GetComponent<UnityEngine::MeshRenderer*>()->set_material(mat);
                                 break;
                             }
                         }
-                    }
                 }
-                transformName = il2cpp_utils::createcsstr("vertigoCylinder");
+                transformName = il2cpp_utils::newcsstr("vertigoCylinder");
                 if (UnityEngine::Transform* cylinder = get_transform()->Find(transformName))
                 {
                     cylinder->get_gameObject()->SetActive(false);
@@ -107,7 +104,7 @@ namespace AntiVertigo
                 break;
             case CYLINDER:
                 lookingFor += "vertigoCylinder";
-                transformName = il2cpp_utils::createcsstr(lookingFor);
+                transformName = il2cpp_utils::newcsstr(lookingFor);
                 if (UnityEngine::Transform* cylinder = get_transform()->Find(transformName))
                 {
                     cylinder->get_gameObject()->SetActive(true);
@@ -119,23 +116,20 @@ namespace AntiVertigo
                     cylinderGO->get_transform()->SetParent(get_transform(), false);
                     cylinderGO->get_transform()->set_localScale(UnityEngine::Vector3(1.0f, 0.1f, 1.0f));
 
-                    Array<UnityEngine::Material*>* allMats = UnityEngine::Resources::FindObjectsOfTypeAll<UnityEngine::Material*>();
+                    ArrayW<UnityEngine::Material*> allMats = UnityEngine::Resources::FindObjectsOfTypeAll<UnityEngine::Material*>();
                     std::string matName = "";
-                    if (allMats)
-                    {
-                        for (int i = 0; i < allMats->Length(); i++)
+                        for (auto mat : allMats)
                         {
-                            if (!allMats->values[i]) continue;
-                            matName = to_utf8(csstrtostr(allMats->values[i]->get_name()));
+                            if (!mat) continue;
+                            matName = to_utf8(csstrtostr(mat->get_name()));
                             if (matName == "DarkEnvironmentSimple")
                             {
-                                cylinderGO->GetComponent<UnityEngine::MeshRenderer*>()->set_material(allMats->values[i]);
+                                cylinderGO->GetComponent<UnityEngine::MeshRenderer*>()->set_material(mat);
                                 break;
                             }
                         }
-                    }
                 }
-                transformName = il2cpp_utils::createcsstr("vertigoCube");
+                transformName = il2cpp_utils::newcsstr("vertigoCube");
                 if (UnityEngine::Transform* cube = get_transform()->Find(transformName))
                 {
                     cube->get_gameObject()->SetActive(false);

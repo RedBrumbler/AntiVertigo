@@ -1,10 +1,11 @@
 #include "config.hpp"
+#include "logging.hpp"
 
 static ModInfo modInfo = {ID, VERSION};
-extern Logger& getLogger();
 config_t config;
 
-Configuration& getConfig() {
+Configuration& getConfig()
+{
     static Configuration config(modInfo);
     config.Load();
     return config;
@@ -12,7 +13,7 @@ Configuration& getConfig() {
 
 void SaveConfig()
 {
-    getLogger().info("Saving Configuration...");
+    INFO("Saving Configuration...");
     getConfig().config.RemoveAllMembers();
     getConfig().config.SetObject();
     rapidjson::Document::AllocatorType& allocator = getConfig().config.GetAllocator();
@@ -23,46 +24,65 @@ void SaveConfig()
     getConfig().config.AddMember("zmax", config.zmax, allocator);
     getConfig().config.AddMember("shape", config.shape, allocator);
     getConfig().Write();
-    getLogger().info("Saved Configuration!");
+    INFO("Saved Configuration!");
 }
 
 bool LoadConfig()
 {
-    getLogger().info("Loading Configuration...");
+    INFO("Loading Configuration...");
     getConfig().Load();
     bool foundEverything = true;
-    if(getConfig().config.HasMember("enabled") && getConfig().config["enabled"].IsBool()){
-        config.enabled = getConfig().config["enabled"].GetBool();    
-    }else{
+    if (getConfig().config.HasMember("enabled") && getConfig().config["enabled"].IsBool())
+    {
+        config.enabled = getConfig().config["enabled"].GetBool();
+    }
+    else
+    {
         foundEverything = false;
     }
-    if(getConfig().config.HasMember("xmin") && getConfig().config["xmin"].IsDouble()){
-        config.xmin = getConfig().config["xmin"].GetDouble();    
-    }else{
+    if (getConfig().config.HasMember("xmin") && getConfig().config["xmin"].IsDouble())
+    {
+        config.xmin = getConfig().config["xmin"].GetDouble();
+    }
+    else
+    {
         foundEverything = false;
     }
-    if(getConfig().config.HasMember("xmax") && getConfig().config["xmax"].IsDouble()){
-        config.xmax = getConfig().config["xmax"].GetDouble();    
-    }else{
+    if (getConfig().config.HasMember("xmax") && getConfig().config["xmax"].IsDouble())
+    {
+        config.xmax = getConfig().config["xmax"].GetDouble();
+    }
+    else
+    {
         foundEverything = false;
     }
-    if(getConfig().config.HasMember("zmin") && getConfig().config["zmin"].IsDouble()){
-        config.zmin = getConfig().config["zmin"].GetDouble();    
-    }else{
+    if (getConfig().config.HasMember("zmin") && getConfig().config["zmin"].IsDouble())
+    {
+        config.zmin = getConfig().config["zmin"].GetDouble();
+    }
+    else
+    {
         foundEverything = false;
     }
-    if(getConfig().config.HasMember("zmax") && getConfig().config["zmax"].IsDouble()){
-        config.zmax = getConfig().config["zmax"].GetDouble();    
-    }else{
+    if (getConfig().config.HasMember("zmax") && getConfig().config["zmax"].IsDouble())
+    {
+        config.zmax = getConfig().config["zmax"].GetDouble();
+    }
+    else
+    {
         foundEverything = false;
     }
-    if(getConfig().config.HasMember("shape") && getConfig().config["shape"].IsInt()){
-        config.shape = getConfig().config["shape"].GetInt();    
-    }else{
+    if (getConfig().config.HasMember("shape") && getConfig().config["shape"].IsInt())
+    {
+        config.shape = getConfig().config["shape"].GetInt();
+    }
+    else
+    {
         foundEverything = false;
     }
-    if(foundEverything){
-        getLogger().info("Loaded Configuration!");
+    if (foundEverything)
+    {
+        INFO("Loaded Configuration!");
         return true;
     }
     return false;
