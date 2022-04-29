@@ -1,17 +1,15 @@
 {
   "_QPVersion": "0.1.1",
-  "name": "Anti Vertigo",
+  "name": "${mod_name}",
   "id": "${mod_id}",
   "author": "RedBrumbler",
   "version": "${version}",
   "packageId": "com.beatgames.beatsaber",
-  "packageVersion": "1.17.1",
-  "coverImage": "cover.png",
+  "packageVersion": "1.21.0",
   "description": "Spawn a bigger base platform for people with vertigo so they can play comfortably, ${mod_id} v${version}",
-  "type": "Gameplay",
+  "coverImage": "cover.png",
   "dependencies": [],
   "modFiles": [],
   "libraryFiles": [],
-  "fileCopies": [],
-  "copyExtensions": []
+  "fileCopies": []
 }

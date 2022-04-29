@@ -1,7 +1,7 @@
 #include "config.hpp"
 #include "logging.hpp"
 
-static ModInfo modInfo = {ID, VERSION};
+static ModInfo modInfo = {MOD_ID, VERSION};
 config_t config;
 
 Configuration& getConfig()
