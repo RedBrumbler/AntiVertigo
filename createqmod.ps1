@@ -1,70 +1,50 @@
-param($p1)
+Param(
+    [String]$qmodname="",
+    [Parameter(Mandatory=$false)]
+    [Switch]$clean
+)
 
-if (-not $env:qmodName) 
+if ($qmodName -eq "")
 {
-    $env:qmodName = "InvertedArrows"
-}  
-if (-not $env:module_id)
-{
-    $env:module_id = "invertedarrows"
+    echo "Give a proper qmod name and try again"
+    exit
 }
-
-$zip = $env:qmodName + ".zip"
-$qmod = $env:qmodName + ".qmod"
-
 $mod = "./mod.json"
 $modJson = Get-Content $mod -Raw | ConvertFrom-Json
 
-$allLibs = Get-ChildItem ./libs/arm64-v8a/*.so | Select -Expand Name
-$libs = @()
+$filelist = @($mod)
 
 $cover = "./" + $modJson.coverImage
+$fileList = @($mod)
 
-$fileList = @($cover, $mod)
-
-$bannedLibList = @("modloader", "questui", "custom-types", "codegen")
-
-$modlib = @()
-
-foreach ($lib in $allLibs) 
+if ((-not ($cover -eq "./")) -and (Test-Path $cover))
 {
-    # ignore modloader
-    $contains = 0
-    foreach ($ban in $bannedLibList)
-    {
-        if ($lib.Contains($ban))
-        {
-            $contains = 1
-            break
-        }
-    }
-
-    if ($contains)
-    {
-        continue
-    }
-    # if its the actual mod lib
-    else
-    {
-        if ($lib.Contains($env:module_id))
-        {
-            $path = "./libs/arm64-v8a/" + $lib;
-            $fileList += ,$path;
-            $modlib += ,$lib;
-            continue
-        }
-    }
-    $path = "./libs/arm64-v8a/" + $lib
-    $fileList += ,$path
-    $libs += ,$lib
+    $fileList += ,$cover
 }
 
-$bannedFiles = @("CreatorCache", "Patrons")
+foreach ($mod in $modJson.modFiles)
+{
+    $path = "./build/" + $mod
+    if (-not (Test-Path $path))
+    {
+        $path = "./extern/libs/" + $mod
+    }
+    $filelist += $path
+}
 
-$extraFiles = @()
+foreach ($lib in $modJson.libraryFiles)
+{
+    $path = "./build/" + $lib
+    if (-not (Test-Path $path))
+    {
+        $path = "./extern/libs/" + $lib
+    }
+    $filelist += $path
+}
 
 if (Test-Path "./ExtraFiles")
 {
+    $extraFiles = @()
     $extraEntries = Get-ChildItem ./ExtraFiles/* -Recurse
 
     foreach ($entry in $extraEntries)
@@ -75,59 +55,50 @@ if (Test-Path "./ExtraFiles")
             continue
         }
 
-        $doContinue = 0
-        foreach ($ban in $bannedFiles)
+        # if not a dir
+        if (-not $entry.Directory.Name.Contains("ExtraFiles"))
         {
-            if ($entry.Name.Contains($ban))
+            $dir = $entry.Directory
+            $folderPath = $dir.Name + "/" + $entry.Name
+            while (($dir.Directory) -and (-not $dir.Directory.Name.Contains("ExtraFiles")))
             {
-                $doContinue = 1
-                break
+                $folderPath = $dir.Directory.Name + "/" + $folderPath
             }
-        }
 
-        if ($doContinue)
+            if ($folderPath.Contains("Icons")) 
+            {
+                continue;
+            }
+            $extraFiles += ,$folderPath
+        }
+        else
         {
-            continue
+            $extraFiles += ,$entry.Name
         }
+    }
 
-        $path = $entry | Select -expand fullname
-        $fileList += ,$path
+    foreach ($file in $extraFiles)
+    {
+        $path = "./ExtraFiles/" + $file
+        $filelist += ,$path
     } 
 }
 else
 {
     echo "No ExtraFiles Directory Found"
 }
-# update version from qpm json
-$qpm = "./qpm.json"
-$qpmJson = Get-Content $qpm | ConvertFrom-Json 
-$modJson.version = $qpmJson.info.version
 
-#$libs += ,"libbeatsaber-hook_2_2_4.so";
-#$fileList += ,"./extern/libbeatsaber-hook_2_2_4.so";
+$zip = $qmodName + ".zip"
+$qmod = $qmodName + ".qmod"
 
-# add the thing to the libs list because we don't need it as a mod file
-$modJson.modFiles = $modlib
-$modJson.libraryFiles = $libs
-$modText = $modJson | ConvertTo-Json -Depth 50 -EscapeHandling EscapeNonAscii
-
-Set-Content $mod $modText
-
-# if the qmod exists, rename it to zip to update it, we'll rename it back later
-if (Test-Path $qmod) 
-{
-    if ($p1 -and $p1.Contains("y"))
-    {
-        echo "param y passed, deleting previous existent qmod"
-        remove-item $qmod
-    }
-    else
-    {
-        move-item -Force $qmod $zip
-    }
+if ($clean.IsPresent) {
+    echo "Making Clean Qmod"
 }
-$msg = "Creating qmod for module " + $env:module_id + " With name " + $qmod
-echo $msg
-Compress-Archive -Path $fileList -DestinationPath $zip -Update
 
-& move-item -Force $zip $qmod
+if ((-not ($clean.IsPresent)) -and (Test-Path $qmod))
+{
+    Move-Item $qmod $zip -Force
+}
+
+Compress-Archive -Path $filelist -DestinationPath $zip -Update
+Move-Item $zip $qmod -Force
