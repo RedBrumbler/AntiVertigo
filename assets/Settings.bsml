@@ -1,0 +1,10 @@
+<bg id='root' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:noNamespaceSchemaLocation='https://raw.githubusercontent.com/RedBrumbler/Quest-BSML-Docs/gh-pages/schema.xsd'>
+    <scrollable-settings-container>
+        <toggle-setting text='Enabled' apply-on-change='true' value='enabled'/>
+        <increment-setting text='Platform left side offset' apply-on-change='true' value='xmin' increment='0.2' min='0' hover-hint='How far the platform extends to the left side'/>
+        <increment-setting text='Platform right side offset' apply-on-change='true' value='xmax' increment='0.2' min='0' hover-hint='How far the platform extends to the right side'/>
+        <increment-setting text='Platform back side offset' apply-on-change='true' value='zmin' increment='0.2' min='0' hover-hint='How far the platform extends to the back side'/>
+        <increment-setting text='Platform front side offset' apply-on-change='true' value='zmax' increment='0.2' min='0' hover-hint='How far the platform extends to the front side'/>
+        <dropdown-list-setting text='Platform Shape' options='shape_options' apply-on-change='true' value='shape' hover-hint='The shape of the platform'/>
+    </scrollable-settings-container>
+</bg>

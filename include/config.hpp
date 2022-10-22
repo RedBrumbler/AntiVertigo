@@ -14,6 +14,7 @@ typedef struct _config_t {
   int shape = 0;
 } config_t;
 
+extern config_t config;
 Configuration& getConfig();
 void SaveConfig();
 bool LoadConfig();
