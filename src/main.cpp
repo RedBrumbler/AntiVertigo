@@ -19,7 +19,6 @@
 #include "Installers/MenuInstaller.hpp"
 
 static ModInfo modInfo;
-std::string activeSceneName = "";
 
 extern "C" void Setup(ModInfo info)
 {
