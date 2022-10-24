@@ -5,15 +5,17 @@
 #include "Zenject/DiContainer.hpp"
 #include "Zenject/FromBinderNonGeneric.hpp"
 
+#include "lapiz/shared/utilities/ZenjectExtensions.hpp"
 DEFINE_TYPE(AntiVertigo, AppInstaller);
+
+using namespace Lapiz::Zenject::ZenjectExtensions;
 
 namespace AntiVertigo {
     void AppInstaller::InstallBindings() {
         auto container = get_Container();
 
-        auto go = UnityEngine::GameObject::New_ctor();
-        UnityEngine::Object::DontDestroyOnLoad(go);
-        go->set_name("AntiVertigoPlatform");
-        container->BindInterfacesAndSelfTo<VertigoPlatform*>()->FromNewComponentOn(go)->AsSingle()->Lazy();
+        auto params = ::Zenject::GameObjectCreationParameters::New_ctor();
+        params->set_Name("VertigoPlatform");
+        FromNewComponentOnNewGameObject(container->BindInterfacesAndSelfTo<VertigoPlatform*>(), params)->AsSingle()->Lazy();
     }
 }
