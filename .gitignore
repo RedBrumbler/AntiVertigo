@@ -7,7 +7,6 @@ extern/
 libs/
 obj/
 *.cmake
-qpm.shared.json
 ndkpath.txt
 
 *.ps1
