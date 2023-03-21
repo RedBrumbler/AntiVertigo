@@ -1,0 +1,46 @@
+{
+  "_QPVersion": "0.1.1",
+  "name": "AntiVertigo",
+  "id": "AntiVertigo",
+  "author": "RedBrumbler",
+  "version": "1.0.6",
+  "packageId": "com.beatgames.beatsaber",
+  "packageVersion": "1.28.0_4124311467",
+  "description": "Spawn a bigger base platform for people with vertigo so they can play comfortably, AntiVertigo v1.0.6",
+  "coverImage": "cover.png",
+  "dependencies": [
+    {
+      "version": "^0.33.0",
+      "id": "codegen",
+      "downloadIfMissing": "https://github.com/sc2ad/BeatSaber-Quest-Codegen/releases/download/v0.33.0/Codegen.qmod"
+    },
+    {
+      "version": "^0.15.23",
+      "id": "custom-types",
+      "downloadIfMissing": "https://github.com/sc2ad/Il2CppQuestTypePatching/releases/download/v0.15.23/CustomTypes.qmod"
+    },
+    {
+      "version": "^0.1.11",
+      "id": "lapiz",
+      "downloadIfMissing": "https://github.com/raineio/Lapiz/releases/download/v0.1.11/Lapiz.qmod"
+    },
+    {
+      "version": "^0.3.1",
+      "id": "bsml",
+      "downloadIfMissing": "https://github.com/RedBrumbler/Quest-BSML/releases/download/v0.3.1/BSML.qmod"
+    },
+    {
+      "version": "^1.2.9",
+      "id": "paper",
+      "downloadIfMissing": "https://github.com/Fernthedev/paperlog/releases/download/v1.2.9/paperlog.qmod"
+    }
+  ],
+  "modFiles": [
+    "libantivertigo.so"
+  ],
+  "libraryFiles": [
+    "libbeatsaber-hook_3_14_0.so"
+  ],
+  "fileCopies": [],
+  "copyExtensions": []
+}

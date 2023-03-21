@@ -4,7 +4,7 @@
   "info": {
     "name": "AntiVertigo",
     "id": "AntiVertigo",
-    "version": "1.0.2",
+    "version": "1.0.6",
     "url": "https://github.com/RedBrumbler/AntiVertigo",
     "additionalData": {
       "overrideSoName": "libantivertigo.so"
@@ -58,22 +58,22 @@
   ],
   "workspace": {
     "scripts": {
-      "build": [
-        "pwsh ./scripts/build.ps1"
+      "log": [
+        "pwsh ./scripts/log.ps1"
       ],
       "clean": [
         "pwsh ./scripts/build.ps1 -clean"
       ],
-      "copy": [
-        "pwsh ./scripts/copy.ps1"
-      ],
-      "log": [
-        "pwsh ./scripts/log.ps1"
+      "build": [
+        "pwsh ./scripts/build.ps1"
       ],
       "qmod": [
         "pwsh ./scripts/build.ps1 -clean",
         "qpm-rust qmod build",
         "pwsh ./scripts/createqmod.ps1 AntiVertigo -clean"
+      ],
+      "copy": [
+        "pwsh ./scripts/copy.ps1"
       ]
     }
   }
